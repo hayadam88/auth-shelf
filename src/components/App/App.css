@@ -17,6 +17,16 @@ form {
     border-radius: 2px;
 }
 
+
+.addItem {
+    width: 30%;
+    height: 250px;
+    margin: 20px auto;
+    padding: 25px;
+}
+
+
+
 input {
     margin: 5px;
     margin-bottom: 10px;

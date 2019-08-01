@@ -4,7 +4,8 @@ import ItemListItem from '../ItemListItem/ItemListItem';
 
 class ItemList extends Component {
     componentDidMount = () => {
-        this.props.dispatch({type: 'FETCH_ITEMS'})
+        console.log('ItemList');
+        this.props.dispatch({type: 'FETCH_ITEM'})
     }
     
     render(){
@@ -18,7 +19,7 @@ class ItemList extends Component {
     }
 }
 
-const mapReduxStoreToProps = reduxStore ({
+const mapReduxStoreToProps = reduxStore => ({
     reduxStore
 })
 

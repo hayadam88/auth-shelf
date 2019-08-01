@@ -5,6 +5,8 @@ import userSaga from './userSaga';
 import itemSaga from './itemSaga';
 import {takeEvery} from 'redux-saga/effects';
 import deleteSaga from './deleteSaga';
+import addSaga from './addSaga';
+
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -16,6 +18,7 @@ import deleteSaga from './deleteSaga';
 export default function* rootSaga() {
   yield takeEvery('DELETE_ITEM', deleteSaga);
   yield takeEvery('FETCH_ITEM', itemSaga);
+  yield takeEvery('ADD_ITEM', addSaga);
   yield all([
     loginSaga(),
     registrationSaga(),

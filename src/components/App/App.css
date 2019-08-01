@@ -57,3 +57,8 @@ input {
     border-bottom:1px solid #444; 
     cursor: pointer;
 }
+
+img {
+    width: 100px;
+    height: 150px;
+}

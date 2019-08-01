@@ -16,3 +16,6 @@ CREATE TABLE "item" (
     "user_id" INT REFERENCES "user"
 );
 
+INSERT INTO item(description, image_url, user_id)
+    VALUES('tokyo skype music', 'https://c8.alamy.com/comp/H3DX65/tokyo-japan-7th-oct-2016-japanese-cosmetics-giant-shiseido-employee-H3DX65.jpg', 1 ),
+    ('QUEEN APPLE', 'https://cdn.shopify.com/s/files/1/1781/3871/products/crown_apple_label.jpg?v=1554781016', 1);

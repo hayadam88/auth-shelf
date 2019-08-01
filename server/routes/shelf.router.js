@@ -1,12 +1,22 @@
 const express = require('express');
 const pool = require('../modules/pool');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const router = express.Router();
 
 /**
  * Get all of the items on the shelf
  */
-router.get('/', (req, res) => {
-    res.sendStatus(200); // For testing only, can be removed
+router.get('/', rejectUnauthenticated, (req, res) => {
+    console.log(req.user);
+    const userId = req.user.id;
+    const sqlText = `SELECT * FROM item WHERE user_id=$1;`;
+    pool.query(sqlText, [userId])
+        .then(response => {
+            res.send(response.rows);
+        })
+        .catch(error => {
+            console.log('error getting items for user', error);
+        })
 });
 
 
@@ -21,8 +31,17 @@ router.post('/', (req, res) => {
 /**
  * Delete an item if it's something the logged in user added
  */
-router.delete('/:id', (req, res) => {
-
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+    const idToDelete = req.params.id;
+    const sqlText = `DELETE FROM item WHERE user_id=$1 AND id=$2;`;
+    pool.query(sqlText, [req.user.id, idToDelete])
+        .then(response => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            console.log('error deleting item', error);
+            res.sendStatus(500);
+        })
 });
 
 

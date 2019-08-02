@@ -9,8 +9,8 @@ const router = express.Router();
 router.get('/', rejectUnauthenticated, (req, res) => {
     console.log(req.user);
     const userId = req.user.id;
-    const sqlText = `SELECT * FROM item WHERE user_id=$1;`;
-    pool.query(sqlText, [userId])
+    const sqlText = `SELECT * FROM item;`;
+    pool.query(sqlText)
         .then(response => {
             res.send(response.rows);
         })
@@ -59,7 +59,17 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
  * Update an item if it's something the logged in user added
  */
 router.put('/:id', (req, res) => {
-
+    const idToUpdate = req.params.id;
+    const item = req.body;
+    const sqlText = `UPDATE item SET description=$1, image_url=$2 WHERE id=$3`;
+    const values = [item.description, item.image_url, idToUpdate];
+    pool.query(sqlText, values)
+        .then(response => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            console.log('error in editing item', error);
+        })
 });
 
 

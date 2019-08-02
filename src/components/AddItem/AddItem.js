@@ -15,7 +15,7 @@ state = {
 
 
 handleSubmit = () => {
-
+    this.props.dispatch({ type: 'ADD_ITEM', payload: this.state})
 };
 
 handleChangeFor = (event, property) => {
